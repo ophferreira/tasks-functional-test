@@ -126,4 +126,27 @@ public class TasksTest {
 			driver.quit();
 		}
 	}
+	
+	@Test
+	public void deveRemoverTaskComSucesso() throws MalformedURLException {
+		WebDriver driver = setupApplication();
+		
+		try {
+			//Criar uma task
+			driver.findElement(By.id("addTodo")).click();
+			driver.findElement(By.id("task")).sendKeys("Test");
+			driver.findElement(By.id("dueDate")).sendKeys("01/01/2022");
+			driver.findElement(By.id("saveButton")).click();
+			String message = driver.findElement(By.id("message")).getText();
+			Assert.assertEquals("Success!", message);
+			
+			//Remover uma task
+			driver.findElement(By.xpath("//a[text()='Remove']")).click();
+			message = driver.findElement(By.id("message")).getText();
+			Assert.assertEquals("Success!", message);
+		}finally {
+			//Fechar browser
+			driver.quit();
+		}
+	}
 }
